@@ -1,0 +1,17 @@
+{
+  "name": "ethers-simple-storage",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "yarn solcjs --bin --abi --include-path node_modules/ --base-path . -o . SimpleStorage.sol",
+    "execute": "node deploy.js"
+  },
+  "author": "Pradeep Sahu",
+  "description": "",
+  "dependencies": {
+    "ethers": "^6.12.1",
+    "solc": "0.8.10"
+  }
+}
