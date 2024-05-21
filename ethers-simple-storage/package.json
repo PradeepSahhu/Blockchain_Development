@@ -11,6 +11,7 @@
   "author": "Pradeep Sahu",
   "description": "",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "ethers": "^6.12.1",
     "solc": "0.8.10"
   }
