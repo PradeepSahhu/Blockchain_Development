@@ -54,6 +54,7 @@ contract SimpleStorage {
 
     function getPeopleInfoLength() public view returns (uint) {
         return peopleInfo.length;
+
     }
 
     function setData(string memory _sName, uint _age) public virtual {
@@ -74,11 +75,19 @@ contract SimpleStorage {
         return deployedContractAddress;
     }
 
+    function getInfo(string memory _name) external pure returns(string memory){
+        return _name;
+    }
+
+    function getDetails(string memory _name) public view returns(uint){
+        return peopleData[_name];
+    }
+
     // we need to use memory for [ array, struct, and mappings ] (special types) string is byte arrays.
 
     function displayAllData(
         string memory _userData
-    ) public view returns (uint, People memory, string memory, uint) {
+    ) public  view returns (uint, People memory, string memory, uint) {
         return (peopleData[_userData], People("Sumit", 30, true), "no data", 1);
     }
 }

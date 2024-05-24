@@ -6,7 +6,7 @@ const hre = require("hardhat")
 // abi, binary, wallet
 
 async function main() {
-    //**************** Previously by using ethers ************* */
+    //**************** Previously by using ethers.js ************* */
     // const abi = fs.readFileSync("./")
     // const binary = fs.readFileSync("./")
     // const provider = await ethers.JsonRpcApiProvider("http:127.0.0.1:7545")
@@ -17,7 +17,7 @@ async function main() {
     // transactionReceipt = contract.deploymentTrasaction().wait(1);
 
     //*********By using hardhat-ethers******** */
-    // const provider = new ethers.providers.Web3Provider(window.ethereum)
+
     // provider.getSigners()
 
     // const [owner, addr1] = await ethers.getSigners()
@@ -25,13 +25,16 @@ async function main() {
     // console.log(owner.address)
     // console.log(addr1.address)
 
-    const simpleStorageFactory = await hre.ethers.getContractFactory(
-        "SimpleStorage"
-    )
+    const simpleStorageFactory =
+        await hre.ethers.getContractFactory("SimpleStorage")
     console.log("Deploying contract........")
     const simpleStorageContract = await simpleStorageFactory.deploy()
 
-    console.log(await simpleStorageContract.getAddress())
+    const contractAddress = await simpleStorageContract.getAddress()
+
+    console.log(contractAddress)
+
+    //what happens when we deploy to our hardhat network
 
     // console.log(await simpleStorageContract.getPeopleInfoLength())
 
@@ -40,11 +43,54 @@ async function main() {
     // console.log(await simpleStorageContract.getPeopleInfoLength())
     // console.log(await simpleStorageContract.displayAllData("Pradeep"))
 
-    //what's private key
+    //what's private keymy
     // what the rpc url?
+    // console.log(hre.network.config)
+    // if (
+    //     hre.network.config.chainId === 11155111 &&
+    //     process.env.ETHERSCAN_API_KEY
+    // ) {
+    //     await simpleStorageContract.waitForDeployment(3) // waiting for three blocks to be added after that i will initiate verify function.
+    //     await verify(contractAddress, [])
+    // }
+
+    //Interacting with contracts (calling its functions.)
+    let peopleLength = await simpleStorageContract.getPeopleInfoLength()
+    console.log(`Current value is : ${peopleLength}`)
+
+    await simpleStorageContract.addData("Pradeep", "21", false)
+    simpleStorageContract.waitForDeployment(1)
+    await simpleStorageContract.addData("Ritik", "20", false)
+    simpleStorageContract.waitForDeployment(1)
+
+    console.log(await simpleStorageContract.getDetails("Pradeep"))
+
+    let UpdatedpeopleLength = await simpleStorageContract.getPeopleInfoLength()
+    console.log(`Updated value is : ${UpdatedpeopleLength}`)
+
+    // peopleLength = await simpleStorageContract.getPeopleInfoLength()
+
+    // console.log(`Current value is : ${peopleLength}`)
 }
 
-async function verify(contractAddress, args) {}
+async function verify(contractAddress, args) {
+    console.log("Verifying Contract....")
+
+    try {
+        await hre.run("verify:verify", {
+            address: contractAddress,
+            contructorArguments: args,
+        })
+
+        console.log("Contract is verified")
+    } catch (e) {
+        if (e.message.toLowerCase().includes("already verified")) {
+            console.log("Contract is already verified")
+        } else {
+            console.log(e)
+        }
+    }
+}
 
 main()
     .then(() => process.exit(0))
