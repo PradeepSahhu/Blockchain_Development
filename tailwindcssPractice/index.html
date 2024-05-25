@@ -3,32 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- tailwind cdn -->
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Home Page</title>
-</head>
-<body class="bg-blue-950">
 
-    <nav  class="px-5 py-6 space-x-4 bg-black">
+    <!-- script to connect with the lottie -->
+
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+    
+</head>
+<body class="bg-blue-950 grid grid-cols-5">
+
+    <nav  class="px-5 py-6 space-x-4 bg-black col-start-1 col-end-6">
         <svg class="absolute m-0 top-1"  xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 512 512"><path fill="navy" d="M126.12 315.1A47.06 47.06 0 1 1 79.06 268h47.06Zm23.72 0a47.06 47.06 0 0 1 94.12 0v117.84a47.06 47.06 0 1 1-94.12 0Zm47.06-188.98A47.06 47.06 0 1 1 244 79.06v47.06Zm0 23.72a47.06 47.06 0 0 1 0 94.12H79.06a47.06 47.06 0 0 1 0-94.12Zm188.98 47.06a47.06 47.06 0 1 1 47.06 47.1h-47.06Zm-23.72 0a47.06 47.06 0 0 1-94.12 0V79.06a47.06 47.06 0 1 1 94.12 0ZM315.1 385.88a47.06 47.06 0 1 1-47.1 47.06v-47.06Zm0-23.72a47.06 47.06 0 0 1 0-94.12h117.84a47.06 47.06 0 1 1 0 94.12Z"/></svg><p class="text-white absolute">Pradeep Sahu</p>
-        <ul class="flex space-x-10 text-white justify-end">
-            <li class="cursor-pointer">Home</li>
-            <li class="cursor-pointer"> <a href="https://etherscan.io/" target="_blank">Etherscan</a> </li>
-            <li class="cursor-pointer">Gallery</li>
-            <li class="cursor-pointer">Github</li>
+        <ul class="flex space-x-10 text-white  justify-end">
+            <li class="cursor-pointer hover:text-red-500" >Home</li>
+            <li class="cursor-pointer hover:text-red-500"> <a href="https://etherscan.io/" target="_blank">Etherscan</a> </li>
+            <li class="cursor-pointer hover:text-red-500">Gallery</li>
+            <li class="cursor-pointer hover:text-red-500">Github</li>
         </ul>
     </nav>
-    <main class="flex text-whit justify-center">
+    <main class="text-white flex justify-center col-start-4 col-end-6 space-x-8 row-span-2 items-center">
 
-        <button type="button" class="btn px-5 py-2 mx-5 my-5 relative   text-md font-medium overflow-hidden items-center inline-flex justify-center bg-black rounded-2xl text-white bg-gradient-to-br from-black to-blue-500 group-hover:from-blue-600 hover:to-blue-700"> <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="2em" height="3em" viewBox="0 0 256 417"><path fill="#343434" d="m127.961 0l-2.795 9.5v275.668l2.795 2.79l127.962-75.638z"/><path fill="#8c8c8c" d="M127.962 0L0 212.32l127.962 75.639V154.158z"/><path fill="#3c3c3b" d="m127.961 312.187l-1.575 1.92v98.199l1.575 4.601l128.038-180.32z"/><path fill="#8c8c8c" d="M127.962 416.905v-104.72L0 236.585z"/><path fill="#141414" d="m127.961 287.958l127.96-75.637l-127.96-58.162z"/><path fill="#393939" d="m.001 212.321l127.96 75.637V154.159z"/></svg>
-           <span class="mx-3">Connect with Wallet</span></button>
 
-        <button class="relative inline-flex items-center justify-center px-0.5 py-1 mb-2  my-5 overflow-hidden text-md font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-900 group-hover:from-cyan-500 group-hover:to-blue-900 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
-            <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="2em" height="3em" viewBox="0 0 256 417"><path fill="#343434" d="m127.961 0l-2.795 9.5v275.668l2.795 2.79l127.962-75.638z"/><path fill="#8c8c8c" d="M127.962 0L0 212.32l127.962 75.639V154.158z"/><path fill="#3c3c3b" d="m127.961 312.187l-1.575 1.92v98.199l1.575 4.601l128.038-180.32z"/><path fill="#8c8c8c" d="M127.962 416.905v-104.72L0 236.585z"/><path fill="#141414" d="m127.961 287.958l127.96-75.637l-127.96-58.162z"/><path fill="#393939" d="m.001 212.321l127.96 75.637V154.159z"/></svg>
-            <span class="relative px-3 py-6 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-2xl group-hover:bg-opacity-0 "> Connect to Ethereum Wallet </span>
+        <button type="button" class="px-16 py-2 relative text-md font-medium items-center overflow-hidden justify-end bg-black rounded-2xl text-white bg-gradient-to-br from-black to-blue-500 group-hover:from-blue-600 hover:to-blue-700"> <svg class="object-left" xmlns="http://www.w3.org/2000/svg" width="2em" height="3em" viewBox="0 0 256 417"><path fill="#343434" d="m127.961 0l-2.795 9.5v275.668l2.795 2.79l127.962-75.638z"/><path fill="#8c8c8c" d="M127.962 0L0 212.32l127.962 75.639V154.158z"/><path fill="#3c3c3b" d="m127.961 312.187l-1.575 1.92v98.199l1.575 4.601l128.038-180.32z"/><path fill="#8c8c8c" d="M127.962 416.905v-104.72L0 236.585z"/><path fill="#141414" d="m127.961 287.958l127.96-75.637l-127.96-58.162z"/><path fill="#393939" d="m.001 212.321l127.96 75.637V154.159z"/></svg>
+            <span class="">Connect with Wallet</span>
         </button>
-
+ 
+         <button  type="button" class="relative inline-flex items-center justify-end px-0.5 py-1 overflow-hidden text-md font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-900 group-hover:from-cyan-500 group-hover:to-blue-900 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+             <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="3em" viewBox="0 0 256 417"><path fill="#343434" d="m127.961 0l-2.795 9.5v275.668l2.795 2.79l127.962-75.638z"/><path fill="#8c8c8c" d="M127.962 0L0 212.32l127.962 75.639V154.158z"/><path fill="#3c3c3b" d="m127.961 312.187l-1.575 1.92v98.199l1.575 4.601l128.038-180.32z"/><path fill="#8c8c8c" d="M127.962 416.905v-104.72L0 236.585z"/><path fill="#141414" d="m127.961 287.958l127.96-75.637l-127.96-58.162z"/><path fill="#393939" d="m.001 212.321l127.96 75.637V154.159z"/></svg>
+             <span class="relative px-3 py-6 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-2xl group-hover:bg-opacity-0 "> Connect to Ethereum Wallet </span>
+         </button>
         
     </main>
+    <div class="col-start-1 col-end-4 auto-cols-auto">
+        <dotlottie-player class="inline-flex" src="https://lottie.host/de1414bb-4f16-4e68-a7a0-083ef4842f74/UgXa0nE1Bh.json" background="transparent" speed="0.5" style="width: 700px; height: 700px;" loop autoplay></dotlottie-player>
+    </div>
 
+   
 </body>
 </html>
