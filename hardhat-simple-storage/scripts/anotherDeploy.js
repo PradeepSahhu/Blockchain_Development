@@ -25,17 +25,17 @@ async function main() {
     // console.log(owner.address)
     // console.log(addr1.address)
 
-    const simpleStorageFactory =
-        await hre.ethers.getContractFactory("SimpleStorage")
-    const simpleStorageContract = await simpleStorageFactory.deploy()
-    // simpleStorageContract.deployed()
-    // console.log(simpleStorageContract)
+    const advanceSimpleFactory =
+        await hre.ethers.getContractFactory("simpleAdvance")
+    const advanceSimple = await advanceSimpleFactory.deploy()
+    // advanceSimple.deployed()
+    // console.log(advanceSimple)
 
-    const contractAddress = await simpleStorageContract.getAddress()
+    const contractAddress = await advanceSimple.getAddress()
 
     console.log(contractAddress)
 
-    simpleStorageContract.waitForDeployment(10);
+    advanceSimple.waitForDeployment(10)
 
     //what happens when we deploy to our hardhat network
 
@@ -51,27 +51,27 @@ async function main() {
     //what's private keymy
     // what the rpc url?
     // console.log(hre.network.config)
-    if (
-        hre.network.config.chainId === 11155111 &&
-        process.env.ETHERSCAN_API_KEY
-    ) {
-        await simpleStorageContract.waitForDeployment(3) // waiting for three blocks to be added after that i will initiate verify function.
-        await verify(contractAddress, [])
-    }
+    // if (
+    //     hre.network.config.chainId === 11155111 &&
+    //     process.env.ETHERSCAN_API_KEY
+    // ) {
+    //     await simpleStorageContract.waitForDeployment(3) // waiting for three blocks to be added after that i will initiate verify function.
+    //     await verify(contractAddress, [])
+    // }
 
-    //Interacting with contracts (calling its functions.)
-var value= await simpleStorageContract.getPeopleInfoLength()
-    console.log(`Current value is : ${parseInt(value)}`)
+    // //Interacting with contracts (calling its functions.)
+    // var value = await simpleStorageContract.getPeopleInfoLength()
+    // console.log(`Current value is : ${parseInt(value)}`)
 
-    await simpleStorageContract.addData("Pradeep", "21", false)
-    simpleStorageContract.waitForDeployment(1)
-    await simpleStorageContract.addData("Ritik", "20", false)
-    simpleStorageContract.waitForDeployment(1)
+    // await simpleStorageContract.addData("Pradeep", "21", false)
+    // simpleStorageContract.waitForDeployment(1)
+    // await simpleStorageContract.addData("Ritik", "20", false)
+    // simpleStorageContract.waitForDeployment(1)
 
-    var data = await simpleStorageContract.getDetails("Pradeep");
-    console.log(parseInt(data));
-    let UpdatedpeopleLength = await simpleStorageContract.getPeopleInfoLength()
-    console.log(`Updated value is : ${parseInt(UpdatedpeopleLength)}`)
+    // var data = await simpleStorageContract.getDetails("Pradeep")
+    // console.log(parseInt(data))
+    // let UpdatedpeopleLength = await simpleStorageContract.getPeopleInfoLength()
+    // console.log(`Updated value is : ${parseInt(UpdatedpeopleLength)}`)
 
     // peopleLength = await simpleStorageContract.getPeopleInfoLength()
 

@@ -8,6 +8,8 @@ contract Lock {
     uint public unlockTime;
     address payable public owner;
 
+    mapping(string => uint) mappingOfBalance;
+
     event Withdrawal(uint amount, uint when);
 
     constructor(uint _unlockTime) payable {
@@ -30,5 +32,17 @@ contract Lock {
         emit Withdrawal(address(this).balance, block.timestamp);
 
         owner.transfer(address(this).balance);
+    }
+
+    function addMappingData(string memory _data, uint value) public {
+        mappingOfBalance[_data] = value;
+    }
+
+    function getDataInMapping(string memory _name) public view returns (uint) {
+        return mappingOfBalance[_name];
+    }
+
+    function getOwner() public view returns (address) {
+        return owner;
     }
 }
