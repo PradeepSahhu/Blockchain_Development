@@ -1,8 +1,9 @@
 "use client";
 import Image from "next/image";
-import Delottie from "./Delottie";
-import Button from "./components/Button";
-import ButtonSytle from "./components/ButtonStyle";
+import Animation from "./Animation";
+import Link from "next/link";
+// import Button from "./components/Button";
+// import ButtonSytle from "./components/ButtonStyle";
 
 import { ethers } from "ethers";
 // A single Web3 / Ethereum provider solution for all Wallets
@@ -122,7 +123,7 @@ export default function Home() {
           <button
             id="wallet"
             type="button"
-            className="inline-flex px-0.5 py-1 relative text-lg font-medium items-center overflow-hidden justify-end bg-black rounded-2xl text-white bg-gradient-to-b from-black to-blue-500 group-hover:from-blue-600 hover:to-blue-700"
+            className="inline-flex px-2 py-2 relative text-lg font-medium items-center overflow-hidden justify-end bg-black rounded-2xl text-white bg-gradient-to-b from-black to-blue-500 group-hover:from-blue-600 hover:to-blue-700"
           >
             {" "}
             <svg
@@ -151,15 +152,15 @@ export default function Home() {
               <path fill="#393939" d="m.001 212.321l127.96 75.637V154.159z" />
             </svg>
             <span
-              className="relative px-1 py-2 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-2xl group-hover:bg-opacity-0 "
+              className="relative px-8 py-3 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-2xl group-hover:bg-opacity-0 "
               onClick={initWallet}
             >
-              Connect with Ethereum Wallet
+              Connect with Wallet
             </span>
           </button>
           <button
             type="button"
-            className="relative inline-flex items-center justify-end px-0.5 py-1 overflow-hidden text-md font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-900 group-hover:from-cyan-500 group-hover:to-blue-900 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800"
+            className="relative inline-flex items-center justify-end px-2 py-2 overflow-hidden text-md font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-900 group-hover:from-cyan-500 group-hover:to-blue-900 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -186,18 +187,21 @@ export default function Home() {
               />
               <path fill="#393939" d="m.001 212.321l127.96 75.637V154.159z" />
             </svg>
-            <span className="relative px-3 py-4 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-2xl group-hover:bg-opacity-0 ">
-              Register the Organization
-            </span>
+            <Link
+              href="/Registration"
+              className="transition-all px-10 py-4 ease-in duration-75 bg-white dark:bg-gray-900 rounded-xl group-hover:bg-opacity-0 "
+            >
+              Register Organization
+            </Link>
           </button>
         </main>
-        <div className="col-start-1 col-end-4 auto-cols-auto">
-          <Delottie
+        <div className="col-start-1 col-end-3 ">
+          <Animation
             url={
               "https://lottie.host/de1414bb-4f16-4e68-a7a0-083ef4842f74/UgXa0nE1Bh.json"
             }
-            height={727}
-            width={800}
+            height={800}
+            width={700}
           />
         </div>
       </div>

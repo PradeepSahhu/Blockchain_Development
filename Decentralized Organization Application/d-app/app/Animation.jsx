@@ -3,7 +3,7 @@ import lottie from "lottie-web";
 import { useRef, useEffect } from "react";
 
 // My animation from lottie was rendering twice so took the help from stack overflow (link given below) to solve the issue.
-export default function Delottie(props) {
+export default function Animation(props) {
   console.log(props);
 
   const lottieContainer = useRef(null);
