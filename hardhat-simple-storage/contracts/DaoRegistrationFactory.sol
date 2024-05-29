@@ -36,7 +36,7 @@ contract DaoRegistration {
     string public tokenSymbol;
     address public immutable owner;
 
-    // for contant data.
+    // for constant data accessing through their address.
     mapping(address => bool) public whiteListedStackHolders;
     mapping(address => uint) public contributorsAmount;
     mapping(address => uint) public stakeHolderType;
@@ -113,7 +113,7 @@ contract DaoRegistration {
     function getTypeOfStackHolder(
         address _contriddress
     ) public view returns (uint) {
-        return stakeHolders[presentStakeHolder[_contriddress]].hisType;
+        return stakeHolderType[_contriddress];
     }
 
     function isWhiteListed(address _address) public view returns (bool) {
@@ -136,6 +136,10 @@ contract DaoRegistration {
         return stakeHolderAddresses;
     }
 
+    function getVastingTime(address _address) public view returns (uint) {
+        return vastingData[_address];
+    }
+
     // functionality
 
     function addingStackHolder(
@@ -143,7 +147,7 @@ contract DaoRegistration {
         uint8 _hisType,
         uint256 _amount,
         uint256 _date
-    ) public onlyNew(_contributor) {
+    ) public onlyNew(_contributor) onlyOwner {
         stackHolder memory newStakeHolder = stackHolder(
             _contributor,
             _hisType,
@@ -161,12 +165,6 @@ contract DaoRegistration {
         stakeHolderType[_contributor] = _hisType;
     }
 
-    //not correct.
-    // function whiteListing(uint256 _index) public onlyOwner{
-    //     require(!whiteListedStackHolders[stakeHolders[_index].stakeHolderAddress], "You are already white listed");
-    //    whiteListedStackHolders[stakeHolders[_index].stakeHolderAddress] = true;
-
-    // }
     function whiteListing(address _address) public onlyOwner {
         require(
             whiteListedStackHolders[_address] == false,
@@ -195,8 +193,9 @@ contract DaoRegistration {
 
         require(callMsg, "unsuccesful");
 
-        whiteListedStackHolders[msg.sender] = false;
+        // this Operations doesn't apply on owner like his account can't be removed from whitelist.
         if (msg.sender != owner) {
+            whiteListedStackHolders[msg.sender] = false;
             contributorsAmount[msg.sender] = 0;
             presentStakeHolder[msg.sender] = 0;
             delete stakeHolderDetails[msg.sender];
@@ -223,14 +222,15 @@ contract DaoRegistration {
 
         require(callMsg, "unsuccesful");
 
-        whiteListedStackHolders[msg.sender] = false;
+        // this Operations doesn't apply on owner like his account can't be removed from whitelist.
         if (msg.sender != owner) {
+            whiteListedStackHolders[msg.sender] = false;
+            delete stakeHolderAddresses[presentStakeHolder[msg.sender]];
+            delete stakeHolders[presentStakeHolder[msg.sender]];
             contributorsAmount[msg.sender] = 0;
             presentStakeHolder[msg.sender] = 0;
             delete stakeHolderDetails[msg.sender];
             vastingData[msg.sender] = 0;
-            delete stakeHolderAddresses[presentStakeHolder[msg.sender]];
-            delete stakeHolders[presentStakeHolder[msg.sender]];
         }
     }
 
