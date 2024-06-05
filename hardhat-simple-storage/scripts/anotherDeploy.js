@@ -1,7 +1,7 @@
 // import
 // const fs = require("fs")
 // const { ethers } = require("ethers")
-// const hardhat = require("hardhat")
+const hre = require("hardhat")
 
 // abi, binary, wallet
 
@@ -26,7 +26,7 @@ async function main() {
     // console.log(addr1.address)
 
     const advanceSimpleFactory =
-        await hre.ethers.getContractFactory("simpleAdvance")
+        await hre.ethers.getContractFactory("simpleStorage")
     const advanceSimple = await advanceSimpleFactory.deploy()
     // advanceSimple.deployed()
     // console.log(advanceSimple)
@@ -39,14 +39,16 @@ async function main() {
 
     //what happens when we deploy to our hardhat network
 
-    // console.log(await simpleStorageContract.getPeopleInfoLength())
+    console.log(await simpleStorageContract.getPeopleInfoLength())
 
-    // await simpleStorageContract.addData("Pradeep", 21, false)
-    // await simpleStorageContract.addData("Ritkk", 22, false)
-    // console.log(await simpleStorageContract.getPeopleInfoLength())
-    // console.log(await simpleStorageContract.displayAllData("Pradeep"))
+    await simpleStorageContract.addData("Pradeep", 21, false)
+    await simpleStorageContract.addData("Ritkk", 22, false)
+    console.log(await simpleStorageContract.getPeopleInfoLength())
+    console.log(await simpleStorageContract.displayAllData("Pradeep"))
 
-    // console.log(`The remaining balance is : ${await hre.ethers.provider.getBalance()}`)
+    console.log(
+        `The remaining balance is : ${await hre.ethers.provider.getBalance()}`,
+    )
 
     //what's private keymy
     // what the rpc url?

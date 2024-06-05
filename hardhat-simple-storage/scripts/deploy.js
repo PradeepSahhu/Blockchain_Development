@@ -1,7 +1,7 @@
 // import
 // const fs = require("fs")
 // const { ethers } = require("ethers")
-// const hardhat = require("hardhat")
+import {hre} from "hardhat";
 
 // abi, binary, wallet
 
@@ -41,16 +41,16 @@ async function main() {
 
     // console.log(await simpleStorageContract.getPeopleInfoLength())
 
-    // await simpleStorageContract.addData("Pradeep", 21, false)
-    // await simpleStorageContract.addData("Ritkk", 22, false)
-    // console.log(await simpleStorageContract.getPeopleInfoLength())
+    await simpleStorageContract.addData("Pradeep", 21, false)
+    await simpleStorageContract.addData("Ritkk", 22, false)
+    console.log(await simpleStorageContract.getPeopleInfoLength())
     // console.log(await simpleStorageContract.displayAllData("Pradeep"))
 
     // console.log(`The remaining balance is : ${await hre.ethers.provider.getBalance()}`)
 
-    //what's private keymy
+    // what's private keymy
     // what the rpc url?
-    // console.log(hre.network.config)
+    console.log(hre.network.config)
     if (
         hre.network.config.chainId === 11155111 &&
         process.env.ETHERSCAN_API_KEY
@@ -59,26 +59,26 @@ async function main() {
         await verify(contractAddress, [])
     }
 
-    //Interacting with contracts (calling its functions.)
-var value= await simpleStorageContract.getPeopleInfoLength()
-    console.log(`Current value is : ${parseInt(value)}`)
+//     //Interacting with contracts (calling its functions.)
+// var value= await simpleStorageContract.getPeopleInfoLength()
+//     console.log(`Current value is : ${parseInt(value)}`)
 
-    await simpleStorageContract.addData("Pradeep", "21", false)
-    simpleStorageContract.waitForDeployment(1)
-    await simpleStorageContract.addData("Ritik", "20", false)
-    simpleStorageContract.waitForDeployment(1)
+//     await simpleStorageContract.addData("Pradeep", "21", false)
+//     simpleStorageContract.waitForDeployment(1)
+//     await simpleStorageContract.addData("Ritik", "20", false)
+//     simpleStorageContract.waitForDeployment(1)
 
-    var data = await simpleStorageContract.getDetails("Pradeep");
-    console.log(parseInt(data));
-    let UpdatedpeopleLength = await simpleStorageContract.getPeopleInfoLength()
-    console.log(`Updated value is : ${parseInt(UpdatedpeopleLength)}`)
+//     var data = await simpleStorageContract.getDetails("Pradeep");
+//     console.log(parseInt(data));
+//     let UpdatedpeopleLength = await simpleStorageContract.getPeopleInfoLength()
+//     console.log(`Updated value is : ${parseInt(UpdatedpeopleLength)}`)
 
-    // peopleLength = await simpleStorageContract.getPeopleInfoLength()
+//     // peopleLength = await simpleStorageContract.getPeopleInfoLength()
 
-    // console.log(`Current value is : ${peopleLength}`)
-}
+//     // console.log(`Current value is : ${peopleLength}`)
+// }
 
-async function verify(contractAddress, args) {
+// async function verify(contractAddress, args) {
     console.log("Verifying Contract....")
 
     try {
