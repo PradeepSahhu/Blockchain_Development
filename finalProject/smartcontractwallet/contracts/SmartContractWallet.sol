@@ -26,9 +26,12 @@ contract SmartContractWallet is BaseAccount, UUPSUpgradeable, Initializable {
     address public owner;
 
     IEntryPoint private immutable _entryPoint;
-    bytes32 private immutable password;
+    bytes32 private password;
 
-    event SmartSample(IEntryPoint indexed entryPoint, address indexed owner);
+    event SimpleAccountInitialized(
+        IEntryPoint indexed entryPoint,
+        address indexed owner
+    );
 
     modifier onlyOwner() {
         _onlyOwner();
@@ -56,13 +59,33 @@ contract SmartContractWallet is BaseAccount, UUPSUpgradeable, Initializable {
         );
     }
 
-    function login(string memory _data) public view {
-        bytes32 message = keccak256(abi.encode(_data));
-        require(message == password, "You are not the owner");
+    function setPassword(string memory _password) public onlyOwner {
+        password = keccak256(abi.encode(_password));
     }
 
-    function checkBalance() public view returns (address) {
+    function login(string memory _data) internal view returns (bool) {
+        bytes32 message = keccak256(abi.encode(_data));
+        require(message == password, "You are not the owner");
+        return true;
+    }
+
+    function changeOwner(string memory _password) public {
+        bool res = login(_password);
+        require(res, "You are not authorized");
+        owner = msg.sender;
+    }
+
+    function checkAddress() public view returns (address) {
         return address(this);
+    }
+
+    function checkBalance() public view returns (uint) {
+        return address(this).balance;
+    }
+
+    function transferTo(address _transferTo, uint amount) public {
+        (bool callMsg, ) = _transferTo.call{value: amount}("");
+        require(callMsg, "Transfer unsuccessfull");
     }
 
     /**
@@ -109,7 +132,7 @@ contract SmartContractWallet is BaseAccount, UUPSUpgradeable, Initializable {
 
     function _initialize(address anOwner) internal virtual {
         owner = anOwner;
-        emit SmartSample(_entryPoint, owner);
+        emit SimpleAccountInitialized(_entryPoint, owner);
     }
 
     // Require the function call went through EntryPoint or owner
@@ -141,18 +164,18 @@ contract SmartContractWallet is BaseAccount, UUPSUpgradeable, Initializable {
     }
 
     // /**
-    //  * check current account deposit in the entryPoint
-    //  */
-    function getDeposit() public view returns (uint256) {
-        return entryPoint().balanceOf(address(this));
-    }
+    // //  * check current account deposit in the entryPoint
+    // //  */
+    // function getDeposit() public view returns (uint256) {
+    //     return entryPoint().balanceOf(address(this));
+    // }
 
-    /**
-     * deposit more funds for this account in the entryPoint
-     */
-    function addDeposit() public payable {
-        entryPoint().depositTo{value: msg.value}(address(this));
-    }
+    // /**
+    //  * deposit more funds for this account in the entryPoint
+    //  */
+    // function addDeposit() public payable {
+    //     entryPoint().depositTo{value: msg.value}(address(this));
+    // }
 
     // /**
     //  * withdraw value from the account's deposit

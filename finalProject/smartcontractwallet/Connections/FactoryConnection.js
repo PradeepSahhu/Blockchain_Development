@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 
-async function EstablishConnection() {
+async function FactoryConnection() {
   console.log(process);
   if (typeof window.ethereum === "undefined") {
     console.log("Please install wallet.");
@@ -23,10 +23,10 @@ async function EstablishConnection() {
     const providerVar = new ethers.providers.Web3Provider(instanceVar);
 
     const contractAddress = process.env.FACTORY_CONTRACT_ADDRESS;
-    console.log(contractAddress);
+    console.log("CONTRACT ADDRESS : " + contractAddress);
 
     const abi = process.env.FACTORY_ABI;
-    console.log(abi);
+    console.log("Factory ABI : " + abi);
 
     try {
       const signer = providerVar.getSigner();
@@ -41,4 +41,4 @@ async function EstablishConnection() {
   }
 }
 
-export default EstablishConnection;
+export default FactoryConnection;

@@ -1,24 +1,61 @@
 "use client";
 import { useEffect, useState } from "react";
-import Clipboard from "clipboard";
-import ClipButton from "../components/Clipboard";
+import WalletConnection from "@/Connections/WalletConnection";
+
 import QRCODE from "../components/QRCode";
 
-export default function Accounts({ props }) {
-  const textToCopy = "0x161aBA4657174De9a36C3Ee71bC8163118d88d43";
-
+export default function Accounts({ params }) {
   const [showQr, setShowQr] = useState(false);
   const [sending, setSending] = useState(false);
+  const [verify, setVerify] = useState(false);
+  const [sendAccount, setSendAccount] = useState();
+  const [sendAmount, setSendAmount] = useState();
+  const [password, setPassword] = useState();
+  const [balance, setBalance] = useState();
 
-  useEffect(() => {}, []);
+  async function sendTransaction() {
+    try {
+      console.log(sendAccount + "  ---> " + sendAmount);
+      const SmartWallet = await WalletConnection(params.accounts);
+      const res = await SmartWallet.transferTo(
+        sendAccount,
+        parseInt(sendAmount)
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    async function Operations() {
+      await getBalances();
+    }
+    Operations();
+    console.log(params.accounts);
+  }, []);
+
+  async function getBalances() {
+    try {
+      const SmartWallet = await WalletConnection(params.accounts);
+      const balance = await SmartWallet.checkBalance();
+      setBalance(parseInt(balance));
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   return (
     <div className="bg-black rounded-xl m-10">
-      <div className=" bg-black rounded-lg text-xl bg-opacity-70 my-10">
-        Account Address is
+      <div className=" bg-black rounded-lg text-5xl bg-opacity-70 my-10 grid items-center justify-center bg-gradient-to-r from-red-600 via-emerald-700 to-cyan-400 bg-clip-text text-transparent">
+        {params.accounts}
       </div>
 
-      <p className="text-6xl">Current Balance is : </p>
+      <p className="text-6xl">
+        Current Balance is :
+        <span className="bg-gradient-to-r from-violet-500 via-emerald-700 to-purple-500 bg-clip-text text-transparent">
+          {balance}
+        </span>
+      </p>
       <div className="grid grid-cols-3 m-10">
         <div className="flex justify-center items-center py-5 col-start-1 col-end-1">
           <button
@@ -39,7 +76,7 @@ export default function Accounts({ props }) {
         <div className="flex justify-center items-center py-5 col-start-3 col-end-3">
           <button
             className="bg-rose-900 p-5 rounded-xl bg-gradient-to-r from-lime-600 to-blue-700 "
-            onClick={() => setShowQr(true)}
+            onClick={() => setVerify(true)}
           >
             Verify Owner
           </button>
@@ -48,19 +85,29 @@ export default function Accounts({ props }) {
 
       {sending && (
         <div className="m-10  items-center justify-center text-white">
+          <div className="text-3xl flex justify-center items-center my-5 ">
+            <p className="bg-gradient-to-r from-amber-500 via-orange-600 to-green-500 bg-clip-text text-transparent font-bold">
+              Sending to the Address
+            </p>
+          </div>
           <div className="grid bg-[#005C78] px-20 py-10  col-start-1 col-end-3 mx-64 rounded-xl">
             <label className="">Enter the Address to send To</label>
             <input
               className="text-white bg-slate-800 p-5 rounded-md mx-5 my-5"
+              onChange={(e) => setSendAccount(e.target.value)}
               required
             />
             <label className="">Enter the Amount to send To</label>
             <input
               className="text-white bg-slate-800 p-5 rounded-md mx-5 my-5"
               required
+              onChange={(e) => setSendAmount(e.target.value)}
             />
             <div className="flex justify-center items-center">
-              <button className="px-10 py-5 rounded-lg bg-gradient-to-r from-orange-600 to-violet-900 font-normal ">
+              <button
+                className="px-10 py-5 rounded-lg bg-gradient-to-r from-orange-600 to-violet-900 font-normal "
+                onClick={() => sendTransaction()}
+              >
                 Send the Payment
               </button>
             </div>
@@ -70,7 +117,34 @@ export default function Accounts({ props }) {
       {/* <ClipButton text={`${textToCopy}`}>Copy to Clipboard</ClipButton> */}
       {showQr && (
         <div className="flex justify-center items-center">
-          <QRCODE data={textToCopy} />
+          <div className="text-3xl flex justify-center items-center my-5 ">
+            <p className="bg-gradient-to-r from-amber-500 via-orange-600 to-green-500 bg-clip-text text-transparent font-bold">
+              Scan or Copy the address to receive
+            </p>
+          </div>
+          <QRCODE data={params.accounts} />
+        </div>
+      )}
+
+      {verify && (
+        <div className="m-10 items-center justify-center text-white">
+          <div className="text-3xl flex justify-center items-center my-5 ">
+            <p className="bg-gradient-to-r from-amber-500 via-orange-600 to-green-500 bg-clip-text text-transparent font-bold">
+              Verify the Owner
+            </p>
+          </div>
+          <div className="grid bg-[#005C78] px-20 py-10  col-start-1 col-end-3 mx-64 rounded-xl">
+            <label className="">Enter the Password to Verify</label>
+            <input
+              className="text-white bg-slate-800 p-5 rounded-md mx-5 my-5"
+              required
+            />
+            <div className="flex justify-center items-center">
+              <button className="px-10 py-5 rounded-lg bg-gradient-to-r from-orange-900 to-violet-900 font-normal ">
+                Verify
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

@@ -10,13 +10,13 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.2",
+    "@walletconnect/web3-provider": "^1.8.0",
     "chart.js": "^4.4.3",
     "clipboard": "^2.0.11",
+    "ethers": "^5.7.2",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
-    "@walletconnect/web3-provider": "^1.8.0",
-    "ethers": "^5.7.2",
     "web3modal": "^1.9.10"
   },
   "devDependencies": {
@@ -32,7 +32,6 @@
     "chai": "^4.2.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
-    "ethers": "^6.4.0",
     "hardhat": "^2.22.5",
     "hardhat-gas-reporter": "^1.0.8",
     "postcss": "^8",
