@@ -1,0 +1,43 @@
+{
+  "name": "smartcontractwallet",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.2",
+    "chart.js": "^4.4.3",
+    "clipboard": "^2.0.11",
+    "next": "14.2.3",
+    "react": "^18",
+    "react-dom": "^18",
+    "@walletconnect/web3-provider": "^1.8.0",
+    "ethers": "^5.7.2",
+    "web3modal": "^1.9.10"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.0",
+    "@nomicfoundation/hardhat-ignition": "^0.15.0",
+    "@nomicfoundation/hardhat-ignition-ethers": "^0.15.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.0",
+    "@typechain/ethers-v6": "^0.5.0",
+    "@typechain/hardhat": "^9.0.0",
+    "chai": "^4.2.0",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.3",
+    "ethers": "^6.4.0",
+    "hardhat": "^2.22.5",
+    "hardhat-gas-reporter": "^1.0.8",
+    "postcss": "^8",
+    "solidity-coverage": "^0.8.0",
+    "tailwindcss": "^3.4.1",
+    "typechain": "^8.3.0"
+  }
+}
