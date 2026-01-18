@@ -14,7 +14,7 @@
     "chart.js": "^4.4.3",
     "clipboard": "^2.0.11",
     "ethers": "^5.7.2",
-    "next": "14.2.3",
+    "next": "14.2.35",
     "react": "^18",
     "react-dom": "^18",
     "web3modal": "^1.9.10"
